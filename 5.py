@@ -22,7 +22,7 @@ def react2():
     def react(ch):
         Q = deque()
         for c in input:
-            if c == ch or c.lower() == ch:
+            if c.lower() == ch:
                 continue
             try:
                 top = Q.pop()

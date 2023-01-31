@@ -5,7 +5,7 @@ for line in lines:
     t = re.findall(r'-?\d+', line)
     points.append([int(t[0]), int(t[1]), int(t[2]), int(t[3])])
 
-
+print(points)
 
 def tipar(points, x1, x2, y1, y2):
     outfile = open('10.out', 'w')
