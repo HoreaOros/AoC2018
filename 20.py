@@ -1,4 +1,5 @@
-input = open('20.ex').read().strip()[1:-1]
+# unsuccesful attempt (see 20take2.py)
+input = open('20.in').read().strip()[1:-1]
 
 
 lst = []
