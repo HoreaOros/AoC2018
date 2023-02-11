@@ -1,0 +1,32 @@
+#ip 2
+seti 123 0 1        r1 = 123
+bani 1 456 1        r1 = r1 & 456 ==>> 72
+eqri 1 72 1         r1 = 1 if r1 = 72 else 0
+addr 1 2 2          r2 = 1
+seti 0 0 2          r2 = 0
+seti 0 4 1          r1 = 0
+bori 1 65536 3      r3 = 65536
+seti 10905776 4 1   r1 = 10905776
+bani 3 255 4        r4 =  r3 and 255                                                                                                                          
+addr 1 4 1          r1 = r1 + r4 
+bani 1 16777215 1   r1 = r1 & 16777215
+muli 1 65899 1      r1 = r1 * 65899
+bani 1 16777215 1   r1 = r1 & 16777215
+gtir 256 3 4        r4 = 1 if 256 > r3 else 0
+addr 4 2 2          r2 = r2 + 4
+addi 2 1 2
+seti 27 1 2
+seti 0 6 4
+addi 4 1 5
+muli 5 256 5
+gtrr 5 3 5
+addr 5 2 2
+addi 2 1 2
+seti 25 1 2
+addi 4 1 4
+seti 17 9 2
+setr 4 7 3
+seti 7 4 2
+eqrr 1 0 4
+addr 4 2 2
+seti 5 1 2
