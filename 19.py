@@ -97,7 +97,7 @@ def run(regs):
             break
     print(regs[0])
 
-run(list(regs))
+#run(list(regs))
 
 regs[0] = 1
 run(list(regs))

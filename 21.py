@@ -84,10 +84,23 @@ op16 = {
 
                  
 def run(regs):
+    SEEN = set()
+    part1 = False
+    part2 = False
     ip = 0                                                                                       
-    while True:
+    while not (part1 and part2):
         regs[ipReg] = ip
-
+        if ip == 28:
+            if not part1:
+                print(regs[1]) # first value printed, answer to part1
+                part1 = True
+            else:
+                if regs[1] in SEEN:
+                    print(last)
+                    part2 = True
+                    break
+            SEEN.add(regs[1])  
+            last = regs[1]  
         # execute instruction
         instr, a, b, c = prog[ip]
         op16[instr](regs, a, b, c)                                                                                  
@@ -101,5 +114,4 @@ def run(regs):
 regs = [0, 0, 0, 0, 0, 0]
 run(list(regs))
 
-regs[0] = 1
-run(list(regs))                                                                                                              
+                                                                                                           

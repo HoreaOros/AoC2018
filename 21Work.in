@@ -1,32 +1,53 @@
 #ip 2
-seti 123 0 1        r1 = 123
-bani 1 456 1        r1 = r1 & 456 ==>> 72
-eqri 1 72 1         r1 = 1 if r1 = 72 else 0
-addr 1 2 2          r2 = 1
-seti 0 0 2          r2 = 0
-seti 0 4 1          r1 = 0
-bori 1 65536 3      r3 = 65536
-seti 10905776 4 1   r1 = 10905776
-bani 3 255 4        r4 =  r3 and 255                                                                                                                          
-addr 1 4 1          r1 = r1 + r4 
-bani 1 16777215 1   r1 = r1 & 16777215
-muli 1 65899 1      r1 = r1 * 65899
-bani 1 16777215 1   r1 = r1 & 16777215
-gtir 256 3 4        r4 = 1 if 256 > r3 else 0
-addr 4 2 2          r2 = r2 + 4
-addi 2 1 2
-seti 27 1 2
-seti 0 6 4
-addi 4 1 5
-muli 5 256 5
-gtrr 5 3 5
-addr 5 2 2
-addi 2 1 2
-seti 25 1 2
-addi 4 1 4
-seti 17 9 2
-setr 4 7 3
-seti 7 4 2
-eqrr 1 0 4
-addr 4 2 2
-seti 5 1 2
+ 0. seti 123 0 1        r1 = 123
+ 1. bani 1 456 1        r1 = r1 & 456 // 72
+ 2. eqri 1 72 1         r1 = 1 if r1 == 72 else 0
+ 3. addr 1 2 2          ip = r1 + ip  /// if r1 == 1 jump 5 (skip 1 instruction)
+ 
+ 4. seti 0 0 2          GOTO 0 
+ 
+ 5. seti 0 4 1          r1 = 0
+
+
+ 6. bori 1 65536 3      r3 = r1 | 65536
+ 7. seti 10905776 4 1   r1 = 10905776
+ 
+ 8. bani 3 255 4        r4 = r3 % 2^8
+19. addr 1 4 1          r1 = r1 + r4
+10. bani 1 16777215 1   r1 = r1 & 16777215 (2^24 - 1)  // r1 = r1 % 2^24
+11. muli 1 65899 1      r1 = r1 * 65899
+12. bani 1 16777215 1   r1 = r1 & 16777215 (2^24 - 1)  // r1 = r1 % 2^24
+
+if r3 < 256 GOTO 16
+      else GOTO 17
+13. gtir 256 3 4        r4 = 1 if 256 > r3 else 0
+14. addr 4 2 2          ip = ip + r4   if r3 < 256 skip next instruction ->> GOTO 16
+15. addi 2 1 2          ip = ip + 1 (skip next instruction)
+
+16. seti 27 1 2     GOTO 28
+
+        # r3 = [r5 / 256]
+        17. seti 0 6 4       r4 = 0
+        18. addi 4 1 5       r5 = r4 + 1
+        19. muli 5 256 5     r5 = r5 * 256
+
+        if r5 > r3 GOTO 26
+            else GOTO 24
+        20. gtrr 5 3 5       r5 = 1 if r5 > r3 else 0 
+        21. addr 5 2 2       ip += 1 if r5 = 1
+        22. addi 2 1 2
+        23. seti 25 1 2   GOTO 26
+        24. addi 4 1 4    r4 += 1
+        25. seti 17 9 2   GOTO 18
+        26. setr 4 7 3    r3 = r4
+
+
+27. seti 7 4 2    GOTO 8
+
+
+
+if r0 == r1 EXIT()
+else GOTO 6
+28. eqrr 1 0 4    r4 = 1 if r1 == r0 else 0
+29. addr 4 2 2    ip = ip + r4
+30. seti 5 1 2
