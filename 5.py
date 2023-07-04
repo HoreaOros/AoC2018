@@ -4,6 +4,7 @@ input = open('5.in').read()
 
 def react1():
     Q = deque()
+    
     for c in input:
         try:
             top = Q.pop()
@@ -13,6 +14,7 @@ def react1():
         if abs(ord(c) - ord(top)) != 32:
             Q.append(top)
             Q.append(c)
+
     print(len(Q))
 
 react1()
